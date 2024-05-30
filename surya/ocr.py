@@ -27,7 +27,10 @@ def run_recognition(images: List[Image.Image], langs: List[List[str]], rec_model
         all_slices.extend(slices)
         all_langs.extend([lang] * len(slices))
 
-    rec_predictions, _ = batch_recognition(all_slices, all_langs, rec_model, rec_processor, batch_size=batch_size)
+    if len(all_slices) == 0:
+        rec_predictions = []
+    else:
+        rec_predictions, _ = batch_recognition(all_slices, all_langs, rec_model, rec_processor, batch_size=batch_size)
 
     predictions_by_image = []
     slice_start = 0
